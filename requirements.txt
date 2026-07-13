@@ -16,6 +16,3 @@ pydantic-settings==2.10.1
 # Resume text extraction (lightweight, no ML models)
 pypdf==5.7.0
 python-docx==1.1.2
-
-
-
