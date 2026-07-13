@@ -1,0 +1,10 @@
+[server]
+# Stop Streamlit from walking loaded module paths on every rerun.
+# This inspection is what segfaults when native C-extension libraries
+# (torch, grpcio, onnxruntime, opencv, etc.) are present.
+fileWatcherType = "none"
+
+[client]
+# Show full tracebacks in the app so a real error isn't hidden behind
+# the generic "Segmentation fault" line. Remove once debugging is done.
+showErrorDetails = true
