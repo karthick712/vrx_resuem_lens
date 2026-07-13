@@ -1,0 +1,42 @@
+streamlit==1.49.1
+pandas==2.3.0
+python-dotenv==1.1.1
+pillow==11.2.1
+
+# Docling (for resume parsing)
+docling==2.61.1
+docling-core==2.50.1
+docling-ibm-models==3.10.2
+docling-parse==4.7.1
+langchain-docling==1.1.0
+
+# LangChain + Gemini
+langchain==0.3.27
+langchain-core==0.3.79
+langchain-google-genai==2.1.8
+google-ai-generativelanguage==0.6.18
+
+# Pydantic (schema)
+pydantic==2.11.7
+pydantic-settings==2.10.1
+
+# OCR backends (Docling requires these)
+rapidocr==3.4.2
+opencv-python-headless==4.12.0.88
+
+# PyTorch (required by docling-ibm-models)
+torch==2.4.1
+torchvision==0.19.1 
+onnxruntime==1.19.2
+
+# PDF parsing
+pypdfium2==4.30.0
+pypdf==5.7.0
+pdfminer.six
+
+# Misc LangChain extras
+langchain-community==0.3.31
+langchain-text-splitters==0.3.11
+
+
+
