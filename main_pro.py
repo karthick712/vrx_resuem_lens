@@ -1,9 +1,8 @@
-
 import streamlit as st
 import os 
 from PIL import Image
-from langchain_docling import DoclingLoader
-from langchain_docling.loader import ExportType
+from pypdf import PdfReader
+import docx
 from schema import Profile
 from config import settings
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -11,6 +10,19 @@ import pandas as pd
 from dotenv import load_dotenv
 
 load_dotenv()
+
+
+def extract_text(path):
+    """Extract plain text from a PDF or DOCX resume (no ML models, no OCR)."""
+    lower = path.lower()
+    if lower.endswith(".pdf"):
+        reader = PdfReader(path)
+        return "\n".join((page.extract_text() or "") for page in reader.pages)
+    elif lower.endswith(".docx"):
+        document = docx.Document(path)
+        return "\n".join(p.text for p in document.paragraphs)
+    return ""
+
 
 icon = Image.open("logo.png")
 
@@ -99,16 +111,7 @@ with tab1:
                     f.write(uploaded_file.read())
                 
                 
-                # loader = DoclingLoader(file_path=temp_path, export_type=ExportType.MARKDOWN)
-                loader = DoclingLoader(
-                    file_path=temp_path,
-                 
-                    export_type=ExportType.MARKDOWN
-                )
-                
-
-                docs = loader.load()
-                resume_text = docs[0].page_content
+                resume_text = extract_text(temp_path)
                
 
 
@@ -409,10 +412,3 @@ with tab2:
 
 #                 st.success("Your data has been submitted successfully.")
 #                 st.rerun()
-
-
-
-
-
-
-
