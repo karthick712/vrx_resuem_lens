@@ -112,14 +112,22 @@ with tab1:
                 
                 
                 resume_text = extract_text(temp_path)
-               
+
+                if not resume_text.strip():
+                    st.error(
+                        "Couldn't read any text from this file. "
+                        "It may be a scanned/image-only PDF. Try a text-based PDF or DOCX."
+                    )
+                    os.remove(temp_path)
+                    st.stop()
 
 
             with st.spinner("Generating Insights..."):
                 llm = ChatGoogleGenerativeAI(
                     model = "gemini-2.5-flash-lite",
                     temperature = 0,
-                    google_api_key = settings.GEMINI_API_KEY
+                    google_api_key = settings.GEMINI_API_KEY,
+                    transport = "rest",   # avoid gRPC (grpcio segfaults on Streamlit Cloud's image)
                 )
 
                 structured_llm = llm.with_structured_output(
